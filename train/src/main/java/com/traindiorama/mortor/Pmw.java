@@ -2,7 +2,8 @@ package com.traindiorama.mortor;
 
 public class Pmw {
     /**
-     * パルス入力による稼働率制御の為の稼働時間情報構築用メソッド
+     * パルス入力による稼働率制御の為のGPIO出力へ渡す数値構築用メソッド
+     * この制御はPulse Width Modulationという(勉強用メモ) 以下はdoc
      * 
      * @param duration             {@code long } ms ミリ秒で指定する
      * @param operation_persentage {@code int} %で指定
@@ -26,9 +27,7 @@ public class Pmw {
         long repeat = max_divisions;
         if (divided_runDuration < min_WaitTime || divided_slpDuration < min_WaitTime) {
             // 正確に実行できず実際のdurationが間延びしてしまうので, 分割数を減らす
-            for (int i = max_divisions; i < 0; i--) {
-                runDurationLong = Math.round((double) duration * (operation_persentage / 100));
-                slpDurationLong = duration - runDurationLong;
+            for (int i = max_divisions; 0 < i; i--) {
                 divided_runDuration = Math.round((double) runDurationLong / i);
                 divided_slpDuration = Math.round((double) slpDurationLong / i);
                 if (min_WaitTime < divided_runDuration && min_WaitTime < divided_slpDuration) {
