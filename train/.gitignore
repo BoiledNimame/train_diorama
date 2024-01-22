@@ -1,6 +1,6 @@
 # generated class files and some resourse
-target/
-classes/
+./target/
+./target/classes/
 
 # Test Class 4 testing code
 Test.java
