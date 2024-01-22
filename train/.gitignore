@@ -1,9 +1,6 @@
 # generated class files and some resourse
 target/
 
-# Test Class 4 testing code
-Test.java
-
 # launch.json for debugs 
 launch.json
 
