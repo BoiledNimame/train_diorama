@@ -1,4 +1,4 @@
-package com.trainJava.mortor;
+package com.traindiorama.mortor;
 
 public class Pmw {
     /**

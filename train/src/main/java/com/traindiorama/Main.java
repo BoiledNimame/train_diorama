@@ -1,6 +1,6 @@
-package com.trainJava;
+package com.traindiorama;
 
-import com.trainJava.mortor.Pmw;
+import com.traindiorama.mortor.Pmw;
 
 public class Main {
     public static void main(String args[]) {
