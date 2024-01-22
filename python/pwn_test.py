@@ -30,7 +30,7 @@ def PWM(GPIONum, pulsetime_millis, duration_millis):
 while True:
     if GPIO.input(switchTrainWorkInput):
         # 駅にいるか判断
-        if GPIO.pnput(staion1_leadswitch|station2_leadswitch|station3_leadswitch):
+        if GPIO.input(staion1_leadswitch|station2_leadswitch|station3_leadswitch):
             # 何秒で加速し切るかを表す
             kasokudo:int = 1000
             # 少しずつ変えていく, その回数を決める
