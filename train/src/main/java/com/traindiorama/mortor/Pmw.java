@@ -18,7 +18,7 @@ public class Pmw {
     public static long[] pulse(long duration, int operation_persentage, int max_divisions, int min_WaitTime)
             throws IllegalArgumentException {
         if (100 < operation_persentage) {
-            throw new IllegalArgumentException("operation_persentageが100%を超えたため処理を停止します.");
+            throw new IllegalArgumentException("operation_persentageが100%を超えて指定されているため処理を停止します.");
         }
         long runDurationLong = Math.round(duration * ((double) operation_persentage / 100));
         long slpDurationLong = duration - runDurationLong;
