@@ -57,7 +57,7 @@ public class Pi4j {
      * @param shutdown
      * @param initial
      * @param provider
-     * @return 作成済みのセットアップされたデジタル入力オブジェクトを返します.
+     * @return 作成済みのセットアップされたデジタル出力オブジェクトを返します.
      */
     public static DigitalOutput setupGPIO(Context context, String id, String name, int pinBCMNumber,
             DigitalState shutdown, DigitalState initial, String provider) {
