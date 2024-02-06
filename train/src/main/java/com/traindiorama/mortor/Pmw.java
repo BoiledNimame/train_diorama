@@ -1,5 +1,7 @@
 package com.traindiorama.mortor;
 
+import java.io.PrintStream;
+
 public class Pmw {
     /**
      * パルス入力による稼働率制御の為のGPIO出力へ渡す数値構築用メソッド
@@ -38,4 +40,33 @@ public class Pmw {
         }
         return new long[] { divided_runDuration, divided_slpDuration, repeat };
     }
+
+    /**
+     * Log付きメソッド.
+     * @param ps
+     * その他の情報は{@code long[] pulse()}を参照してください.
+     * {@see com.traindiorama.mortor.Pmw}
+     */
+    public static long[] pulseWithLog(PrintStream ps,long duration, int operation, int division, int waittime) {
+        ps.println(repeat(40, "-"));
+        ps.print("duration: " + duration + "ms");
+        ps.println(repeat(9 - String.valueOf(duration).length(), " ") + "operation: " + operation + "%");
+        ps.print("division: *" + division);
+        ps.println(repeat(11 - String.valueOf(division).length(), " ") + "waittime: " + waittime + "ms");
+        long[] result = Pmw.pulse(duration, operation, division, waittime);
+        ps.println("result: run, slp, div: " + result[0] + "ms, " + result[1] + "ms, *" + result[2]);
+        ps.println("result_duration: " + ((result[0] + result[1]) * result[2]) + "ms"
+                + repeat(8 - String.valueOf((result[0] + result[1]) * result[2]).length(), " ") + "err:"
+                + (((result[0] + result[1]) * result[2]) - duration) + "ms");
+        ps.println(repeat(40, "-"));
+        return result;
+    }
+
+    private static String repeat(int length, String str) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            result.append(str);
+        }
+        return result.toString();
+    };
 }
