@@ -1,0 +1,13 @@
+// GPIO memo
+GPIO18: IN1
+GPIO17: IN2
+GPIO??: PMW
+
+GPIO18: PMW
+GPIO17: IN2
+GPIO27: IN1
+
+// lead switch
+GPIO23: ?? // sw1
+GPIO22: ?? // sw2
+GPIO24: ?? // sw3

@@ -9,6 +9,6 @@ public class Test {
         int division = 300; // 分割
         int waittime = 30; // ms
 
-        Pmw.pulseWithLog(System.out, duration, operation, division, waittime);
+        Pmw.pulse(duration, operation, division, waittime, System.out);
     }
 }

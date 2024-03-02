@@ -8,7 +8,7 @@ public class Pmw {
      * この制御はPulse Width Modulationという(勉強用メモ) 以下はdoc
      * 
      * @param duration             {@code long } ms ミリ秒で指定する
-     * @param operation_persentage {@code int} %で指定
+     * @param operation_persentage {@code int} 稼働率, %で指定
      * @param max_divisions        {@code int} パルス波形の分割回数 下限は第4引数
      *                             {@code min_WaitTime} に依存するため目安程度
      * @param min_WaitTime         {@code int} ms ミリ秒で指定 目安は3~50ms程度
@@ -47,7 +47,7 @@ public class Pmw {
      * その他の情報は{@code long[] pulse()}を参照してください.
      * {@see com.traindiorama.mortor.Pmw}
      */
-    public static long[] pulseWithLog(PrintStream ps,long duration, int operation, int division, int waittime) {
+    public static long[] pulse(long duration, int operation, int division, int waittime, PrintStream ps) {
         ps.println(repeat(40, "-"));
         ps.print("duration: " + duration + "ms");
         ps.println(repeat(9 - String.valueOf(duration).length(), " ") + "operation: " + operation + "%");
