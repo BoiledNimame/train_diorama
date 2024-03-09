@@ -1,14 +1,12 @@
 package com.traindiorama;
 
-import com.traindiorama.mortor.Pmw;
+import com.traindiorama.mortor.PWM;
+import com.traindiorama.pulse.MortorData;
 
-public class Test {
+public class Test implements MortorData {
     public static void main(String args[]) {
-        long duration = 10000; // ms
-        int operation = 50; // %
-        int division = 300; // 分割
-        int waittime = 30; // ms
-
-        Pmw.pulse(duration, operation, division, waittime, System.out);
+        int angle = 90;
+        int result = PWM.buildMortorPulse(angle, MaxPulseRangeMicroseconds);
+        System.out.println("angle: " + angle + "°, result: " + result + "μs");
     }
 }
