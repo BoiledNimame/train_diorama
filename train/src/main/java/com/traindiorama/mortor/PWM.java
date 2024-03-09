@@ -2,7 +2,7 @@ package com.traindiorama.mortor;
 
 import java.io.PrintStream;
 
-public class Pmw {
+public class PWM {
     /**
      * パルス入力による稼働率制御の為のGPIO出力へ渡す数値構築用メソッド
      * この制御はPulse Width Modulationという(勉強用メモ) 以下はdoc
@@ -53,7 +53,7 @@ public class Pmw {
         ps.println(repeat(9 - String.valueOf(duration).length(), " ") + "operation: " + operation + "%");
         ps.print("division: *" + division);
         ps.println(repeat(11 - String.valueOf(division).length(), " ") + "waittime: " + waittime + "ms");
-        long[] result = Pmw.pulse(duration, operation, division, waittime);
+        long[] result = PWM.pulse(duration, operation, division, waittime);
         ps.println("result: run, slp, div: " + result[0] + "ms, " + result[1] + "ms, *" + result[2]);
         ps.println("result_duration: " + ((result[0] + result[1]) * result[2]) + "ms"
                 + repeat(8 - String.valueOf((result[0] + result[1]) * result[2]).length(), " ") + "err:"
