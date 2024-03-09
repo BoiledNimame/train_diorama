@@ -1,7 +1,5 @@
 package com.traindiorama.mortor;
 
-import java.util.Arrays;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
