@@ -1,7 +1,7 @@
 // GPIO memo
 GPIO18: IN1
 GPIO17: IN2
-GPIO??: PMW
+GPIO27: PMW <- pulse here
 
 GPIO18: PMW
 GPIO17: IN2
