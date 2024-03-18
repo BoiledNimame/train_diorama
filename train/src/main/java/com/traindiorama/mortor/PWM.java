@@ -12,7 +12,11 @@ public class PWM implements MortorData {
      * @return pulse time (microseconds)
      */
     public static int buildMortorPulse(int angle, int cycle) {
-        int result = (int) (Math.round((double) ((angle * 2500) / 270)));
-        return result <= cycle ? result : cycle;
+        if (angle <= Angle_Degree_MaxRangePulse) {
+            int result = (int) (Math.round((double) ((angle * 2500) / 270)));
+            return result <= cycle ? result : cycle;
+        } else {
+            throw new IllegalArgumentException("angle:" + angle + " is too big! this value must under or equal MaxRange:" + Angle_Degree_MaxRangePulse);
+        }
     }
 }

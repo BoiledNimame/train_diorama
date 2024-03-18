@@ -5,8 +5,10 @@ import com.traindiorama.pulse.MortorData;
 
 public class Test implements MortorData {
     public static void main(String args[]) {
-        int angle = 90;
-        int result = PWM.buildMortorPulse(angle, MaxPulseRangeMicroseconds);
-        System.out.println("angle: " + angle + "°, result: " + result + "μs");
+        int[] angle = new int[]{90, 100, 1, 20, 130};
+        for (int i = 0; i<angle.length;i++ ) {
+            int result = PWM.buildMortorPulse(angle[i], MaxPulseRangeMicroseconds);
+            System.out.println("angle: " + angle[i] + "°, result: " + result + "μs");
+        }
     }
 }
