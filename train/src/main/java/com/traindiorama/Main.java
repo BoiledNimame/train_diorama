@@ -24,13 +24,13 @@ public class Main {
         } else {
             CountDownLatch latch = new CountDownLatch(1);
             yamlLoader thread = new yamlLoader(latch);
-            thread.start();
 
-            
+            thread.start();
             latch.await();
 
             isDebug = ConfigData.getInstance().getConfig().get("debug");
             openGUI = ConfigData.getInstance().getConfig().get("opengui");
+
             ConfigData.gc();
             thread = null;
             latch = null;

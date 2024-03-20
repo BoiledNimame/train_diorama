@@ -3,6 +3,7 @@ package com.traindiorama.config;
 
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class yamlLoader extends Thread
             // ストリームを閉じる
             inputStream.close();
         }
-        catch (Exception e)
+        catch (IOException e)
         {
             e.printStackTrace();
             Main.stop("An error occurred while loading config.yaml. The file does not exist or could not be loaded.", 1);
