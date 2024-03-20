@@ -15,7 +15,7 @@ public class Test {
         Context context = Pi4j.setupContext();
         Platforms platforms = Pi4j.setupPlatforms(context);
         Pi4j.setupConsole(platforms);
-        String provider = "PiGpio";
+        String provider = "pigpio-digital-output";
         DigitalOutput digitalOutput = Pi4j.setupGPIO(context, "mortor_white", "pmw", 18, DigitalState.LOW, DigitalState.LOW, provider);
         System.out.println(digitalOutput);
         Lchika(digitalOutput);
