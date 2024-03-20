@@ -7,6 +7,9 @@ module com.traindiorama {
     // pi4j
     requires transitive com.pi4j;
 
+    // yaml
+    requires transitive org.yaml.snakeyaml;
+
     // other
     opens com.traindiorama.gui to javafx.fxml;
     exports com.traindiorama.gui;

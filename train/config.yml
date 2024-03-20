@@ -1,4 +1,2 @@
-logging:
-  level: INFO
-  loggers:
-    com.traindiorama: DEBUG
+debug: true
+opengui: true

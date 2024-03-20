@@ -1,8 +1,12 @@
 package com.traindiorama;
 
+import java.io.ObjectInputFilter.Config;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
+import com.traindiorama.config.ConfigData;
+import com.traindiorama.config.yamlLoader;
 import com.traindiorama.gui.Controller;
 
 public class Main {
@@ -13,10 +17,28 @@ public class Main {
     // インスタンス化(singleton)
 
     private Main(String[] args) {
+        if (args.length == 0) {
         List<String> arglist = Arrays.asList(args);
-        isDebug = !arglist.isEmpty() ? arglist.contains("-debug") : false;
-        openGUI = !arglist.isEmpty() ? arglist.contains("-gui") : false;
-        arglist = null;
+            isDebug = !arglist.isEmpty() ? arglist.contains("-debug") : false;
+            openGUI = !arglist.isEmpty() ? arglist.contains("-gui") : false;
+            arglist = null;
+        } else {
+            CountDownLatch latch = new CountDownLatch(1);
+            yamlLoader thread = new yamlLoader(latch);
+            thread.start();
+
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            isDebug = ConfigData.getInstance().getConfig().get("debug");
+            openGUI = ConfigData.getInstance().getConfig().get("opengui");
+            ConfigData.gc();
+            thread = null;
+            latch = null;
+        }
     }
 
     // main
@@ -40,5 +62,11 @@ public class Main {
 
     public static boolean hasGUI() {
         return Main.getInstance().openGUI;
+    }
+
+    // 停止
+    public static void stop(String message, int code) {
+        System.out.println(message);
+        System.exit(code);
     }
 }
