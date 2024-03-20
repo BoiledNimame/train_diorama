@@ -1,12 +1,8 @@
 package com.traindiorama.api;
 
-import java.util.concurrent.TimeUnit;
-
 import com.pi4j.context.Context;
-import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalState;
-import com.pi4j.io.gpio.digital.PullResistance;
 import com.pi4j.platform.Platforms;
 import com.pi4j.util.Console;
 
