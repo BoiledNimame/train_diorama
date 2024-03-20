@@ -8,6 +8,7 @@ module com.traindiorama {
     requires transitive com.pi4j;
 
     // other
-    opens com.traindiorama to javafx.fxml;
+    opens com.traindiorama.gui to javafx.fxml;
+    exports com.traindiorama.gui;
     exports com.traindiorama;
 }

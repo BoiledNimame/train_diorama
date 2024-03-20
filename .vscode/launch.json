@@ -6,16 +6,32 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "com.traindiorama/com.traindiorama.Main",
+            "projectName": "train"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
         {
             "type": "java",
-            "name": "Main",
+            "name": "Main_withGUI",
             "request": "launch",
-            "mainClass": "com.traindiorama.Main",
-            "projectName": "train"
+            "mainClass": "${file}",
+            "projectName": "train",
+            "args": "-debug -gui"
+        },
+        {
+            "type": "java",
+            "name": "Main_noGUI",
+            "request": "launch",
+            "mainClass": "${file}",
+            "projectName": "train",
+            "args": "-debug"
         },
         {
             "type": "java",

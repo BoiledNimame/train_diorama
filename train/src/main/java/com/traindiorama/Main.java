@@ -1,19 +1,31 @@
 package com.traindiorama;
 
+import java.util.Arrays;
+import java.util.List;
+
+import com.traindiorama.gui.Controller;
+
 public class Main {
     private static Main instance;
-    public final boolean isDebug;
+    private final boolean isDebug;
+    private final boolean openGUI;
 
     // インスタンス化(singleton)
 
     private Main(String[] args) {
-        isDebug = args.length != 0 ? args[0].equals("-debug") : false;
+        List<String> arglist = Arrays.asList(args);
+        isDebug = !arglist.isEmpty() ? arglist.contains("-debug") : false;
+        openGUI = !arglist.isEmpty() ? arglist.contains("-gui") : false;
+        arglist = null;
     }
 
     // main
 
     public static void main(String[] args) {
         instance = new Main(args);
+        if (Main.hasGUI()) {
+            Controller.launch(Controller.class, args);
+        }
     }
 
     // 後から要りそうになるメソッド
@@ -24,5 +36,9 @@ public class Main {
 
     public static boolean isDebug() {
         return Main.getInstance().isDebug;
+    }
+
+    public static boolean hasGUI() {
+        return Main.getInstance().openGUI;
     }
 }
