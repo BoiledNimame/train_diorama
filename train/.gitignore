@@ -1,5 +1,6 @@
 # generated class files and some resourse
 target/
+javafx-sdk-17/
 
 # launch.json for debugs 
 launch.json
