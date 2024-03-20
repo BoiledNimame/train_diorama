@@ -1,10 +1,7 @@
 package com.traindiorama.mortor;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
 public class SteppingAcceleration {
-    public static long[] shift(int initialOperationPersentage, int lastOperationPersentage, long durationMilliseconds, @Nullable int division, @NonNull boolean isAcceleration) {
+    public static long[] shift(int initialOperationPersentage, int lastOperationPersentage, long durationMilliseconds, int division, boolean isAcceleration) {
         long[] result = new long[] {};
         /*
          * duration = 全体
