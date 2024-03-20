@@ -1,4 +1,4 @@
-module com.ckmidi {
+module com.traindiorama {
     // jfx
     requires transitive javafx.controls;
     requires transitive javafx.graphics;
