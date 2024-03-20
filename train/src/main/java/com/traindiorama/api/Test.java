@@ -16,11 +16,12 @@ public class Test {
         Platforms platforms = Pi4j.setupPlatforms(context);
         Pi4j.setupConsole(platforms);
         String provider = "pigpio-digital-output";
+        Console console = Pi4j.setupConsole(platforms);
         DigitalOutput digitalOutput = Pi4j.setupGPIO(context, "mortor_white", "pmw", 18, DigitalState.LOW, DigitalState.LOW, provider);
-        System.out.println(digitalOutput);
+        console.println(digitalOutput);
         Lchika(digitalOutput);
         Lchika(digitalOutput);
-        System.out.println("end");
+        console.println("end");
         context.shutdown();
     }
 
