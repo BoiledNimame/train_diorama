@@ -1,6 +1,5 @@
 package com.traindiorama;
 
-import java.io.ObjectInputFilter.Config;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -16,8 +15,8 @@ public class Main {
 
     // インスタンス化(singleton)
 
-    private Main(String[] args) {
-        if (args.length == 0) {
+    private Main(String[] args) throws InterruptedException {
+        if (args.length != 0) {
         List<String> arglist = Arrays.asList(args);
             isDebug = !arglist.isEmpty() ? arglist.contains("-debug") : false;
             openGUI = !arglist.isEmpty() ? arglist.contains("-gui") : false;
@@ -27,11 +26,8 @@ public class Main {
             yamlLoader thread = new yamlLoader(latch);
             thread.start();
 
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            
+            latch.await();
 
             isDebug = ConfigData.getInstance().getConfig().get("debug");
             openGUI = ConfigData.getInstance().getConfig().get("opengui");
@@ -43,7 +39,7 @@ public class Main {
 
     // main
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         instance = new Main(args);
         if (Main.hasGUI()) {
             Controller.launch(Controller.class, args);
