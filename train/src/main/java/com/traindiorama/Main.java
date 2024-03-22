@@ -19,24 +19,28 @@ public class Main {
     // インスタンス化(singleton)
 
     private Main(String[] args) throws InterruptedException {
+
+        CountDownLatch latch = new CountDownLatch(1);
+        yamlLoader thread = new yamlLoader(latch);
+
+        thread.start();
+        latch.await();
+
         if (args.length != 0) {
-        List<String> arglist = Arrays.asList(args);
+            List<String> arglist = Arrays.asList(args);
+
             isDebug = !arglist.isEmpty() ? arglist.contains("-debug") : false;
             openGUI = !arglist.isEmpty() ? arglist.contains("-gui") : false;
+
             arglist = null;
         } else {
-            CountDownLatch latch = new CountDownLatch(1);
-            yamlLoader thread = new yamlLoader(latch);
-
-            thread.start();
-            latch.await();
-
             isDebug = config.getConfig().get("debug");
             openGUI = config.getConfig().get("opengui");
-
-            thread = null;
-            latch = null;
         }
+
+        thread = null;
+        latch = null;
+
         pi4j = new ContextObjects();
     }
 
@@ -67,6 +71,7 @@ public class Main {
 
     // 停止
     public static void stop(String message, int code) {
+        Main.getInstance().pi4j.ShutdownContext();
         System.out.println(message);
         System.exit(code);
     }

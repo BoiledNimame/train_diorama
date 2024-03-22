@@ -2,6 +2,8 @@ package com.traindiorama.gui;
 
 import java.io.IOException;
 
+import com.traindiorama.Main;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,6 +40,6 @@ public class Controller extends Application {
 
     @Override
     public void stop() {
-        // TODO shutdown
+        Main.stop("window closed", 0);
     }
 }
