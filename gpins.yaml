@@ -1,5 +1,15 @@
+# 安全のため, デフォルト値0と値が同一のキーに対応する機能は動作しない.
+default: 0
+
+# モータのpwm制御用ピン
 pwm: 18
 
+# リードスイッチ(1~3) 順序不同?
+leadsw1: 0
+leadsw2: 0
+leadsw3: 0
+
+# LEDのpwm制御用ピン
 ledred: 0
 ledblue: 0
 ledgreen: 0
