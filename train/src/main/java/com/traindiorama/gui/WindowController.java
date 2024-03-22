@@ -1,7 +1,7 @@
 package com.traindiorama.gui;
 
 import com.traindiorama.Main;
-import com.traindiorama.pulse.MortorData;
+import com.traindiorama.pulse.FrequencyData;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -37,7 +37,7 @@ public class WindowController {
 
     @FXML
         public void callStop() {
-            Main.getController().stopPwm(MortorData.id);
+            Main.getController().stopPwm(FrequencyData.id);
         }
 
     //------------------------------------// FXML //------------------------------------//
@@ -47,6 +47,6 @@ public class WindowController {
     }
 
     private static void applyDuty(boolean dump) {
-        Main.getController().applyDuty(MortorData.id, getDutyAsInt(), dump);
+        Main.getController().applyDuty(FrequencyData.id, getDutyAsInt(), dump);
     }
 }

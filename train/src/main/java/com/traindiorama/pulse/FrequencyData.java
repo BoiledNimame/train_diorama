@@ -1,6 +1,6 @@
 package com.traindiorama.pulse;
 
-public interface MortorData {
+public interface FrequencyData {
     public String id = "mortor";
     public int MaxPulseRangeMicroseconds = 2500;
     public int MaxPulseRangeFrequency = 400;

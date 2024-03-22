@@ -7,7 +7,7 @@ import com.traindiorama.config.ConfigData;
 import com.traindiorama.pi4j.ContextObjects;
 import com.traindiorama.pi4j.Pi4j;
 import com.traindiorama.pi4j.Provider;
-import com.traindiorama.pulse.MortorData;
+import com.traindiorama.pulse.FrequencyData;
 
 public class Control {
     private final ContextObjects pi4j;
@@ -19,7 +19,7 @@ public class Control {
     }
 
     private void initalize() {
-        pi4j.addPWM(MortorData.id, Pi4j.setupGPIO(
+        pi4j.addPWM(FrequencyData.id, Pi4j.setupGPIO(
                 pi4j.getContext(),
                 "PWM" + config.getPinNumbers().get("pwm"),
                 "mainMortorPwm",
@@ -44,7 +44,7 @@ public class Control {
             // リードスイッチ:ONならPWM制御を停止
             pi4j.getInput("leadsw"+i).addListener(e -> {
                 if (e.state()==DigitalState.HIGH) {
-                    Main.getController().applyDuty(MortorData.id, 0, false);
+                    Main.getController().applyDuty(FrequencyData.id, 0, false);
                 }
             });
         }
@@ -52,7 +52,7 @@ public class Control {
 
     public void applyDuty(String id, int duty, boolean dump) {
         // 最低20以上なので計算挟む
-        pi4j.getPwm(id).on(getTrueDuty(duty), MortorData.MaxPulseRangeFrequency);
+        pi4j.getPwm(id).on(getTrueDuty(duty), FrequencyData.MaxPulseRangeFrequency);
         if (dump) {
             pi4j.console().println("Duty is Applied, Actually Freq: " + pi4j.getPwm(id).getActualFrequency());
         }
@@ -67,4 +67,6 @@ public class Control {
             pi4j.getPwm(id).off();
         }
     }
+
+    
 }
