@@ -1,5 +1,7 @@
 package com.traindiorama;
 
+import java.util.Timer;
+
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.io.gpio.digital.PullResistance;
 import com.pi4j.io.pwm.PwmType;
@@ -7,6 +9,7 @@ import com.traindiorama.config.ConfigData;
 import com.traindiorama.pi4j.ContextObjects;
 import com.traindiorama.pi4j.Pi4j;
 import com.traindiorama.pi4j.Provider;
+import com.traindiorama.pulse.DeferredExecutioner;
 import com.traindiorama.pulse.FrequencyData;
 
 public class Control {
@@ -59,7 +62,7 @@ public class Control {
     }
 
     private int getTrueDuty(int duty) {
-        return Math.toIntExact(Math.round(duty*0.8))+20 <= 100 ? Math.toIntExact(Math.round(duty*0.8))+20 : 100;
+        return getIntfromDouble(duty*0.8)+20 <= 100 ? getIntfromDouble(duty*0.8)+20 : 100;
     }
 
     public void stopPwm(String id) {
@@ -68,5 +71,56 @@ public class Control {
         }
     }
 
-    
+    private int getIntfromDouble(double d) {
+        return Math.toIntExact(Math.round(d));
+    }
+
+    //------------------------------------// unimplemented //------------------------------------//
+
+    private void deceleration(int initial, int end, int durationMilliseconds) {
+        final int split = 50;
+        final int interval = getIntfromDouble(durationMilliseconds/split);
+
+        final Timer timer = new Timer();
+
+        final int variation = initial - end;
+        final int[] variations = new int[split];
+        if (variation/split < 1D){
+            for (int i = 0; i < split; i++) {
+                switch (i) {
+                    case 0:
+                        variations[i] = initial;
+                        break;
+
+                    case split-1:
+                        variations[i] = end;
+                        break;
+
+                    default:
+                        if (getIntfromDouble(1/(variation/split))!=1) {
+                            variations[i] = variations[i-1];
+                        } else {
+                            variations[i] = variations[i-1]-1;
+                        }
+                        break;
+                }
+            }
+        } else {
+            for (int i = 0; i < split; i++) {
+                variations[i] = getIntfromDouble(variation/split);
+            }
+        }
+
+        for (int i = 0; i < split; i++) {
+            switch (i) {
+                case split-1:
+                    timer.schedule(new DeferredExecutioner(variations[i]), durationMilliseconds);
+                    break;
+            
+                default:
+                    timer.schedule(new DeferredExecutioner(variations[i]), interval*i);
+                    break;
+            }
+        }
+    }
 }
