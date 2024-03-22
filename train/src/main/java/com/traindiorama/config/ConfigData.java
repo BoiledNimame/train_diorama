@@ -6,9 +6,15 @@ public class ConfigData {
 
     private static ConfigData instance = new ConfigData();
     private Map<String, Boolean> config;
+    private Map<String, Integer> pinNum;
 
-    public void setConfigData(Map<String, Boolean> configMap) {
+    public void setConfigData(Map<String, Boolean> configMap, Map<String, Integer> pinNum) {
         this.config = configMap;
+        this.pinNum = pinNum;
+    }
+
+    public Map<String, Integer> getPinNumbers() {
+        return pinNum;
     }
 
     public Map<String, Boolean> getConfig() {
@@ -17,10 +23,5 @@ public class ConfigData {
 
     public static ConfigData getInstance() {
         return instance;
-    }
-
-    public static void gc(){
-        getInstance().config = null;
-        instance = null;
     }
 }

@@ -23,6 +23,8 @@ public class Controller extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+
+        // TODO GPIOのsetupをcallする
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -32,5 +34,10 @@ public class Controller extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    @Override
+    public void stop() {
+        // TODO shutdown
     }
 }

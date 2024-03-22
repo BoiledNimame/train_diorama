@@ -1,4 +1,4 @@
-package com.traindiorama.api;
+package com.traindiorama.pi4j;
 
 import com.pi4j.Pi4J;
 import com.pi4j.context.Context;

@@ -1,4 +1,4 @@
-package com.traindiorama.api;
+package com.traindiorama.pi4j;
 
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;

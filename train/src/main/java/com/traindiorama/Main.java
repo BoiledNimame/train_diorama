@@ -7,11 +7,14 @@ import java.util.concurrent.CountDownLatch;
 import com.traindiorama.config.ConfigData;
 import com.traindiorama.config.yamlLoader;
 import com.traindiorama.gui.Controller;
+import com.traindiorama.pi4j.ContextObjects;
 
 public class Main {
     private static Main instance;
     private final boolean isDebug;
     private final boolean openGUI;
+    private final ContextObjects pi4j;
+    private final ConfigData config = ConfigData.getInstance();
 
     // インスタンス化(singleton)
 
@@ -28,13 +31,13 @@ public class Main {
             thread.start();
             latch.await();
 
-            isDebug = ConfigData.getInstance().getConfig().get("debug");
-            openGUI = ConfigData.getInstance().getConfig().get("opengui");
+            isDebug = config.getConfig().get("debug");
+            openGUI = config.getConfig().get("opengui");
 
-            ConfigData.gc();
             thread = null;
             latch = null;
         }
+        pi4j = new ContextObjects();
     }
 
     // main
@@ -43,6 +46,8 @@ public class Main {
         instance = new Main(args);
         if (Main.hasGUI()) {
             Controller.launch(Controller.class, args);
+        } else {
+            // TODO GPIO関連をはじめとした通常セットアップに入る. configから読み出す
         }
     }
 
