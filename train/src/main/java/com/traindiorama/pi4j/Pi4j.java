@@ -6,6 +6,8 @@ import com.pi4j.io.gpio.digital.DigitalInput;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.io.gpio.digital.PullResistance;
+import com.pi4j.io.pwm.Pwm;
+import com.pi4j.io.pwm.PwmType;
 import com.pi4j.platform.Platforms;
 import com.pi4j.util.Console;
 
@@ -48,7 +50,7 @@ public class Pi4j {
     public static DigitalInput setupGPIO(Context context, String id, String name, int pinBCMNumber, PullResistance pr,
             long debounce, String provider) {
         return context.create(DigitalInput.newConfigBuilder(context).id(id).name(name)
-                .address(pinBCMNumber).pull(pr).debounce(debounce).provider(provider));
+                .address(pinBCMNumber).pull(pr).debounce(debounce).provider(provider).build());
     }
 
     /**
@@ -67,6 +69,26 @@ public class Pi4j {
     public static DigitalOutput setupGPIO(Context context, String id, String name, int pinBCMNumber,
             DigitalState shutdown, DigitalState initial, String provider) {
         return context.create(DigitalOutput.newConfigBuilder(context).id(id).name(name).address(pinBCMNumber)
-                .shutdown(shutdown).initial(initial).provider(provider));
+                .shutdown(shutdown).initial(initial).provider(provider).build());
+    }
+
+    /**
+     * ref: https://pi4j.com/documentation/io-examples/pwm/
+     * 
+     * @param context      セットアップされたContextオブジェクト.
+     * @param id           このデジタル入力オブジェクトを表す一意の文字列.
+     * @param name         {@code toString()}や{@code describe()}で使用される文字列.
+     * @param pinBCMNumber BCM: GPIOの数字で指定する, BCM方式で表されるピンの番号.
+     * @param type         推奨: PwmType.HARDWARE
+     * @param initial      pi4jコンテキスト開始時に出力されるpwm duty比
+     * @param shutdown     pi4jコンテキスト停止時に出力されるpwm duty比
+     * @param provider     {@see https://pi4j.com/documentation/providers/}
+     *                     推奨:pigpio .
+     * @return 作成済みのセットアップされたパルス幅制御オブジェクトを返します.
+     */
+    public static Pwm setupGPIO(Context context, String id, String name, int pinBCMNumber,
+            PwmType type, int initial, int shutdown, String provider) {
+        return context.create(Pwm.newConfigBuilder(context).id(id).name(name).address(pinBCMNumber)
+                .initial(initial).shutdown(shutdown).provider(provider).pwmType(type).build());
     }
 }

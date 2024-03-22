@@ -2,6 +2,7 @@ package com.traindiorama.gui;
 
 import java.io.IOException;
 
+import com.traindiorama.Control;
 import com.traindiorama.Main;
 
 import javafx.application.Application;
@@ -25,8 +26,8 @@ public class Controller extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-
-        // TODO GPIOのsetupをcallする
+        
+        Main.setController(new Control(Main.getContexts()));
     }
 
     static void setRoot(String fxml) throws IOException {

@@ -15,11 +15,11 @@ public class Main {
     private final boolean openGUI;
     private final ContextObjects pi4j;
     private final ConfigData config = ConfigData.getInstance();
+    private Control controller;
 
     // インスタンス化(singleton)
 
     private Main(String[] args) throws InterruptedException {
-
         CountDownLatch latch = new CountDownLatch(1);
         yamlLoader thread = new yamlLoader(latch);
 
@@ -51,7 +51,7 @@ public class Main {
         if (Main.hasGUI()) {
             Controller.launch(Controller.class, args);
         } else {
-            // TODO GPIO関連をはじめとした通常セットアップに入る. configから読み出す
+            instance.controller = new Control(instance.pi4j);
         }
     }
 
@@ -62,17 +62,29 @@ public class Main {
     }
 
     public static boolean isDebug() {
-        return Main.getInstance().isDebug;
+        return instance.isDebug;
     }
 
     public static boolean hasGUI() {
-        return Main.getInstance().openGUI;
+        return instance.openGUI;
+    }
+
+    public static ContextObjects getContexts() {
+        return instance.pi4j;
+    }
+
+    public static void setController(Control controller) {
+        instance.controller = controller;
+    }
+    
+    public static Control getController() {
+        return instance.controller;
     }
 
     // 停止
     public static void stop(String message, int code) {
-        Main.getInstance().pi4j.ShutdownContext();
-        System.out.println(message);
+        instance.pi4j.console().println(message);
+        instance.pi4j.ShutdownContext();
         System.exit(code);
     }
 }
