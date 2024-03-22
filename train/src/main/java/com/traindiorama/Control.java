@@ -52,10 +52,14 @@ public class Control {
 
     public void applyDuty(String id, int duty, boolean dump) {
         // 最低20以上なので計算挟む
-        pi4j.getPwm(id).on(Math.toIntExact(Math.round(duty*0.8)) + 20, MortorData.MaxPulseRangeFrequency);
+        pi4j.getPwm(id).on(getTrueDuty(duty), MortorData.MaxPulseRangeFrequency);
         if (dump) {
             pi4j.console().println("Duty is Applied, Actually Freq: " + pi4j.getPwm(id).getActualFrequency());
         }
+    }
+
+    private int getTrueDuty(int duty) {
+        return Math.toIntExact(Math.round(duty*0.8))+20 <= 100 ? Math.toIntExact(Math.round(duty*0.8))+20 : 100;
     }
 
     public void stopPwm(String id) {
