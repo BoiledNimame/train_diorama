@@ -1,7 +1,9 @@
 package com.traindiorama.gui;
 
+import com.traindiorama.Main;
+import com.traindiorama.pulse.MortorData;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 
@@ -12,13 +14,13 @@ public class WindowController {
     //------------------------------------// FXML //------------------------------------//
 
     @FXML Slider mortorSliderDuty;
-    @FXML Button mortorApplyButton;
     @FXML CheckBox mortorCheckboxAllwaysApply;
 
     @FXML
         public void onMouse() {
             if (allwaysApplyDuty) {
                 duty = mortorSliderDuty.getValue();
+                applyDuty(false);
             }
         }
 
@@ -30,15 +32,21 @@ public class WindowController {
     @FXML
         public void onClicked() {
             duty = mortorSliderDuty.getValue();
+            applyDuty(true);
+        }
+
+    @FXML
+        public void callStop() {
+            Main.getController().stopPwm(MortorData.id);
         }
 
     //------------------------------------// FXML //------------------------------------//
 
-    public static boolean allwaysApplyDuty() {
-        return allwaysApplyDuty;
-    }
-
     public static int getDutyAsInt() {
         return Math.toIntExact(Math.round(duty));
+    }
+
+    private static void applyDuty(boolean dump) {
+        Main.getController().applyDuty(MortorData.id, getDutyAsInt(), dump);
     }
 }

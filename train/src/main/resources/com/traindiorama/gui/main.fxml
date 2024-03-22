@@ -15,14 +15,14 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="216.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.traindiorama.gui.WindowController">
   <tabs>
-    <Tab text="メインモータ">
+    <Tab style="-fx-background-radius: 0;" text="メインモータ">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="285.0" prefWidth="254.0">
                <children>
                   <Slider blockIncrement="1.0" layoutX="28.0" layoutY="57.0" onMouseDragged="#onMouse" prefHeight="14.0" prefWidth="161.0" showTickLabels="true" />
-                  <Button layoutX="145.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClicked" text="反映" />
+                  <Button layoutX="145.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClicked" style="-fx-background-radius: 0;" text="反映" />
                   <Text layoutX="29.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duty (%)" />
-                  <CheckBox layoutX="28.0" layoutY="93.0" mnemonicParsing="false" onAction="#onCheckBoxClicked" text="常に反映する" />
+                  <CheckBox layoutX="28.0" layoutY="93.0" mnemonicParsing="false" onAction="#onCheckBoxClicked" style="-fx-background-radius: 0;" text="常に反映する" />
                   <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":制御" />
                   <Separator layoutY="124.0" prefHeight="2.0" prefWidth="216.0" />
                   <Text layoutX="14.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="上手く行かない場合:" />
@@ -30,10 +30,13 @@
                   <Text layoutX="24.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="・起動引数がおかしい" />
                   <Text layoutX="29.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; gpins.yamlを参照" />
                   <Text layoutX="29.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; 再起動" />
+                  <Separator layoutX="1.0" layoutY="238.0" prefHeight="2.0" prefWidth="216.0" />
+                  <Button layoutX="145.0" layoutY="247.0" mnemonicParsing="false" onAction="#callStop" style="-fx-background-radius: 0;" text="停止" />
+                  <Text layoutX="16.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="一時停止(PWM)" />
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="LED">
+    <Tab style="-fx-background-radius: 0;" text="LED">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
       </content>
