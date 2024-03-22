@@ -19,12 +19,17 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="285.0" prefWidth="254.0">
                <children>
-                  <Slider layoutX="32.0" layoutY="49.0" prefHeight="14.0" prefWidth="161.0" />
-                  <Button layoutX="153.0" layoutY="67.0" mnemonicParsing="false" text="反映" />
-                  <Text layoutX="32.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duty" />
-                  <CheckBox layoutX="32.0" layoutY="71.0" mnemonicParsing="false" text="常に反映する" />
+                  <Slider blockIncrement="1.0" layoutX="28.0" layoutY="57.0" onMouseDragged="#onMouse" prefHeight="14.0" prefWidth="161.0" showTickLabels="true" />
+                  <Button layoutX="145.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClicked" text="反映" />
+                  <Text layoutX="29.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duty (%)" />
+                  <CheckBox layoutX="28.0" layoutY="93.0" mnemonicParsing="false" onAction="#onCheckBoxClicked" text="常に反映する" />
                   <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":制御" />
-                  <Separator layoutY="100.0" prefHeight="2.0" prefWidth="216.0" />
+                  <Separator layoutY="124.0" prefHeight="2.0" prefWidth="216.0" />
+                  <Text layoutX="14.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="上手く行かない場合:" />
+                  <Text layoutX="24.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="・GPIOの番号が間違っている" />
+                  <Text layoutX="24.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="・起動引数がおかしい" />
+                  <Text layoutX="29.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; gpins.yamlを参照" />
+                  <Text layoutX="29.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-&gt; 再起動" />
                </children></AnchorPane>
       </content>
     </Tab>
