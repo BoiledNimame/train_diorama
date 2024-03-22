@@ -12,6 +12,7 @@ module com.traindiorama {
 
     // other
     opens com.traindiorama.gui to javafx.fxml;
+    exports com.traindiorama.pi4j;
     exports com.traindiorama.gui;
     exports com.traindiorama;
 }
