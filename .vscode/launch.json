@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Test",
             "request": "launch",
+            "mainClass": "com.traindiorama/com.traindiorama.Test",
+            "projectName": "train"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
             "mainClass": "com.traindiorama/com.traindiorama.api.Test",
             "projectName": "train"
         },
