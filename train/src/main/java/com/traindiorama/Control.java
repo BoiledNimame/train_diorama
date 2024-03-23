@@ -32,24 +32,25 @@ public class Control {
                 0,
                 Provider.PIGPIO_PWM));
 
+        String leadswitchId = "leadsw";
         for (int i=1; i<=3; i++) {
-            if (config.getPinNumbers().get("leadsw"+i)!=0) {
-            pi4j.addInput("leadsw"+i, Pi4j.setupGPIO(
+            if (config.getPinNumbers().get(leadswitchId+i)!=0) {
+            pi4j.addInput(leadswitchId+i, Pi4j.setupGPIO(
                 pi4j.getContext(),
                 "LSW"+i,
                 "LEAD_SWITCH_"+i,
-                config.getPinNumbers().get("leadsw"+i),
+                config.getPinNumbers().get(leadswitchId+i),
                 PullResistance.PULL_UP,
                 2000,
                 Provider.PIGPIO_IN));
+                
+                // リードスイッチ:ONならPWM制御を停止
+                pi4j.getInput(leadswitchId+i).addListener(e -> {
+                    if (e.state()==DigitalState.HIGH) {
+                        Main.getController().applyDuty(FrequencyData.id, 0, false);
+                    }
+                });
             }
-
-            // リードスイッチ:ONならPWM制御を停止
-            pi4j.getInput("leadsw"+i).addListener(e -> {
-                if (e.state()==DigitalState.HIGH) {
-                    Main.getController().applyDuty(FrequencyData.id, 0, false);
-                }
-            });
         }
     }
 

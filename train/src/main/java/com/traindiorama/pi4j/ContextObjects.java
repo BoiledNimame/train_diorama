@@ -9,6 +9,7 @@ import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.platform.Platforms;
 import com.pi4j.util.Console;
+import com.traindiorama.Main;
 
 public class ContextObjects {
     private final Context context;
@@ -45,6 +46,9 @@ public class ContextObjects {
 
     public void addInput(String id, DigitalInput input) {
         GPIO_IN.put(id, input);
+        if(Main.isDebug()) {
+            System.out.println(GPIO_IN+", "+id+", "+input);
+        }
     }
     public DigitalInput getInput(String id) {
         return GPIO_IN.get(id);
