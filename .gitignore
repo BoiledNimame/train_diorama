@@ -1,3 +1,6 @@
 # generated class files and some resourse
 target/
 javafx-sdk-17/
+
+# exported jar file
+*.jar
