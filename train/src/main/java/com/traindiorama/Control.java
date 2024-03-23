@@ -63,7 +63,7 @@ public class Control {
     }
 
     private int getTrueDuty(int duty) {
-        return getIntfromDouble(duty*0.8)+20 <= 100 ? getIntfromDouble(duty*0.8)+20 : 100;
+        return getIntfromDouble((double)duty*0.8D)+20 <= 100 ? getIntfromDouble((double)duty*0.8D)+20 : 100;
     }
 
     public void stopPwm(String id) {
@@ -72,21 +72,22 @@ public class Control {
         }
     }
 
-    private int getIntfromDouble(double d) {
+    private static int getIntfromDouble(double d) {
         return Math.toIntExact(Math.round(d));
     }
 
     //------------------------------------// unimplemented //------------------------------------//
 
-    private void deceleration(int initial, int end, int durationMilliseconds) {
+    public void deceleration(int initial, int end, int durationMilliseconds) {
         final int split = 50;
-        final int interval = getIntfromDouble(durationMilliseconds/split);
+        final int interval = getIntfromDouble((double)durationMilliseconds / (double)split);
 
         final Timer timer = new Timer();
 
         final int variation = initial - end;
         final int[] variations = new int[split];
-        if (variation/split < 1D){
+
+        if (((double)variation / (double)split) < 1.0D){
             for (int i = 0; i < split; i++) {
                 switch (i) {
                     case 0:
@@ -98,17 +99,25 @@ public class Control {
                         break;
 
                     default:
-                        if (getIntfromDouble(1/(variation/split))!=1) {
+                        if ((double) getIntfromDouble((double)i / ((double)variation / (double)split)) != (double)i / ((double)variation / (double)split)) {
                             variations[i] = variations[i-1];
                         } else {
-                            variations[i] = variations[i-1]-1;
+                            if ( end <= variations[i-1]-1 ) {
+                                variations[i] = variations[i-1]-1;
+                            } else {
+                                variations[i] = end;
+                            }
                         }
                         break;
                 }
             }
         } else {
             for (int i = 0; i < split; i++) {
-                variations[i] = getIntfromDouble(variation/split);
+                if (i==0) {
+                    variations[i] = getIntfromDouble((double)variation / (double)split);
+                } else {
+                    variations[i] = variations[i-1] + getIntfromDouble((double)variation / (double)split);
+                }
             }
         }
 
