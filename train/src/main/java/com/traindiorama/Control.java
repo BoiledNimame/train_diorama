@@ -32,7 +32,7 @@ public class Control {
                 0,
                 Provider.PIGPIO_PWM));
 
-        String leadswitchId = "leadsw";
+        final String leadswitchId = "leadsw";
         for (int i=1; i<=3; i++) {
             if (config.getPinNumbers().get(leadswitchId+i)!=0) {
             pi4j.addInput(leadswitchId+i, Pi4j.setupGPIO(
