@@ -28,9 +28,9 @@ public class Control {
                 "mainMortorPwm",
                 config.getPinNumbers().get("pwm"),
                 PwmType.HARDWARE,
+                Provider.PIGPIO_PWM,
                 0,
-                0,
-                Provider.PIGPIO_PWM));
+                0));
 
         final String leadswitchId = "leadsw";
         for (int i=1; i<=3; i++) {

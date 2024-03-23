@@ -86,9 +86,10 @@ public class Pi4j {
      *                     推奨:pigpio .
      * @return 作成済みのセットアップされたパルス幅制御オブジェクトを返します.
      */
+
     public static Pwm setupGPIO(Context context, String id, String name, int pinBCMNumber,
-            PwmType type, int initial, int shutdown, String provider) {
+            PwmType type, String provider, int initial, int shutdown) {
         return context.create(Pwm.newConfigBuilder(context).id(id).name(name).address(pinBCMNumber)
-                .initial(initial).shutdown(shutdown).provider(provider).pwmType(type).build());
+                .provider(provider).pwmType(type).initial(initial).shutdown(shutdown).build());
     }
 }
