@@ -30,7 +30,7 @@ public class Control {
                 PwmType.HARDWARE,
                 Provider.PIGPIO_PWM,
                 0,
-                0));
+                0)); // <-疑い:https://qiita.com/otesho1/items/df99835a44fd4c91f7e6 raspberry pi側の設定?
 
         final String leadswitchId = "leadsw";
         for (int i=1; i<=3; i++) {
