@@ -57,7 +57,7 @@ public class Control {
         // 最低20以上なので計算挟む
         pi4j.getPwm(id).on(getTrueDuty(duty), FrequencyData.MaxPulseRangeFrequency);
         if (dump) {
-            pi4j.console().println("Duty is Applied, Actually Freq: " + pi4j.getPwm(id).getActualFrequency());
+            pi4j.console().println("Duty is Applied:" + FrequencyData.MaxPulseRangeFrequency + " Actually Freq: " + pi4j.getPwm(id).getActualFrequency());
         }
     }
 
