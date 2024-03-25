@@ -11,13 +11,19 @@ import com.traindiorama.pi4j.Pi4j;
 import com.traindiorama.pi4j.Provider;
 import com.traindiorama.pulse.DeferredExecutioner;
 import com.traindiorama.pulse.FrequencyData;
+import com.traindiorama.speed.AngleControl;
+import com.traindiorama.speed.State;
 
-public class Control {
+public class Control implements State {
     private final ContextObjects pi4j;
     private final ConfigData config = ConfigData.getInstance();
+    private final AngleControl controller;
+    private final Timer timer;
 
     public Control(ContextObjects context) {
+        timer = new Timer();
         pi4j = context;
+        controller = new AngleControl(10000);
         initalize();
     }
 
@@ -44,10 +50,13 @@ public class Control {
                 2000,
                 Provider.PIGPIO_IN));
                 
-                // リードスイッチ:ONならPWM制御を停止
-                pi4j.getInput(leadswitchId+i).addListener(e -> {
-                    if (e.state()==DigitalState.HIGH) {
-                        Main.getController().applyDuty(FrequencyData.id, 0, false);
+                pi4j.getInput(leadswitchId+i).addListener(event -> {
+                    if (event.state()==DigitalState.HIGH) {
+                        try {
+                            controller.deceleration();
+                        } catch (InterruptedException err) {
+                            err.printStackTrace();
+                        }
                     }
                 });
             }
@@ -62,8 +71,8 @@ public class Control {
         }
     }
 
-    private int getTrueDuty(int duty) {
-        return getIntfromDouble((double)duty*0.8D)+20 <= 100 ? getIntfromDouble((double)duty*0.8D)+20 : 100;
+    private static int getTrueDuty(int duty) {
+        return getIntfromDouble((double)duty*0.69D)+31 <= 100 ? getIntfromDouble((double)duty*0.69D)+31 : 100;
     }
 
     public void stopPwm(String id) {
@@ -81,8 +90,6 @@ public class Control {
     public void deceleration(int initial, int end, int durationMilliseconds) {
         final int split = 50;
         final int interval = getIntfromDouble((double)durationMilliseconds / (double)split);
-
-        final Timer timer = new Timer();
 
         final int variation = initial - end;
         final int[] variations = new int[split];
